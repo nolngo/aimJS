@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aimJS</title>
+    <style>
+        * { padding: 0; margin: 0; background-color: royalblue;}
+        canvas { background: black; display: block; margin: auto; margin-top: 200px; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="852" height="480">
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    var spawnInterval = 1000;
+
+    var lastSpawn = -1
+
+    var objects = [];
+
+    var startTime = Date.now();
+
+    animate();
+
+    function randomSpawn() {
+        var object = {
+            type: "red",
+
+            x: Math.random() * (canvas.width - 30) + 15,
+
+            y: Math.random() * (canvas.height - 30) + 15,
+        }
+        objects.push(object);
+    }
+
+
+
+
+
+    function animate() { 
+        var time = Date.now();
+
+        if (time > (lastSpawn + spawnInterval)) {
+            lastSpawn = time;
+            randomSpawn();
+        }
+        requestAnimationFrame(animate);
+        for (var i = 0; i < objects.length; i++) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var object = objects[i];
+            ctx.beginPath();
+            ctx.arc(object.x, object.y, 25, 0, Math.PI * 2);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+
+
+
+</script>
+</body>
+</html>
